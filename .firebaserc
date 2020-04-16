@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "vcet-essential-2": {
+      "hosting": {
+        "vcet-essentials-website": [
+          "vcet-essential-2"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<div class="post-actions">
+  <h1>Welcome {{ (org.name + ' ' + org.type) | titlecase }}</h1>
+  <button mat-flat-button color="primary" (click)="onNewPost()">New Post</button>
+  <router-outlet></router-outlet>
+</div>

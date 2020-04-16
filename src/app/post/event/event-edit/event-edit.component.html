@@ -1,0 +1,77 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Event Title</mat-label>
+      <input matInput type="text" formControlName="title">
+    </mat-form-field>
+    <div>
+      <mat-label>Add Event Poster</mat-label>
+      <button class="d-block" type="button" mat-stroked-button (click)="imageRef.click()">Choose Poster</button>
+      <input
+        #imageRef
+        (change)="onImagePicked($event)"
+        type="file"
+        accept="image/*">
+    </div>
+    <div class="image-preview" *ngIf="this.imagePreview">
+      <img [src]="this.imagePreview" [alt]="">
+    </div>
+    <mat-form-field>
+      <mat-label>Choose start date</mat-label>
+      <input matInput [matDatepicker]="startDate" formControlName="startDate">
+      <mat-datepicker-toggle matPrefix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose end date</mat-label>
+      <input matInput [matDatepicker]="endDate" formControlName="endDate">
+      <mat-datepicker-toggle matPrefix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose start time</mat-label>
+      <input matInput type="time" formControlName="startTime">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose end time</mat-label>
+      <input matInput type="time" formControlName="endTime">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Event venue</mat-label>
+      <input matInput type="text" formControlName="venue">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Short description</mat-label>
+      <textarea matInput rows="3" formControlName="description"></textarea>
+      <mat-error *ngIf="form.get('description').invalid">Description should be less than 200 characters</mat-error>
+    </mat-form-field>
+    <div>
+      <mat-label>Add Event PDF(if any)</mat-label>
+      <input #pdfRef type="file" accept="application/pdf" (change)="onPdfPicked($event)">
+      <div class="d-block">
+        <button type="button" mat-stroked-button (click)="pdfRef.click()">
+          {{ form.get('pdf').value ? form.get('pdf').value.name : 'Choose PDF' }}</button>
+        <button class="mx-3" *ngIf="isPdfSelected" mat-flat-button color="warn" (click)="onPdfRemove()">&times;</button>
+      </div>
+    </div>
+    <mat-form-field>
+      <mat-label>Social Media Links(if any)</mat-label>
+      <mat-select (selectionChange)="onSocialMediaSelectChange($event)">
+        <mat-option *ngFor="let option of socialMediaOptions" [value]="option.code">{{ option.platformName | titlecase }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div formGroupName="socialMedia">
+      <div class="social-media-url-list" *ngFor="let option of selectedSocialMediaOptions; let i = index;">
+        <mat-form-field>
+          <mat-label>{{ option.platformName | titlecase }}</mat-label>
+          <input matInput type="url" [formControlName]="option.code">
+        </mat-form-field>
+        <button class="btn-cancel" (click)="onSocialMediaCancel(option.code)">&times;</button>
+      </div>
+    </div>
+    <div class="btn-padding">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+      <button mat-raised-button color="warn" type="button" [routerLink]="['/', 'home']">Cancel</button>
+    </div>
+  </form>
+</mat-card>

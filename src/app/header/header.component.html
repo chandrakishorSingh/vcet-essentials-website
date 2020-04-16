@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <a [routerLink]="['/']">VCET Essentials</a>
+  <div style="margin: 0 2rem;">
+    <a *ngIf="isLoggedIn" mat-button [routerLink]="['/', 'blogs']">Notices</a>
+    <a *ngIf="isLoggedIn" mat-button [routerLink]="['/', 'events']">Events</a>
+    <a *ngIf="isLoggedIn" mat-button [routerLink]="['/', 'notices']">Blogs</a>
+  </div>
+  <span class="spacer"></span>
+  <a
+    *ngIf="isLoggedIn"
+    color="accent"
+    mat-raised-button
+    (click)="onLogout()"
+    [routerLink]="['/', 'auth']"
+  >Logout</a>
+</mat-toolbar>

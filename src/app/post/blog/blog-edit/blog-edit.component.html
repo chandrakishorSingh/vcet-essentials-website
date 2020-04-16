@@ -1,0 +1,56 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Blog Title</mat-label>
+      <input matInput type="text" formControlName="title">
+    </mat-form-field>
+    <div>
+      <button type="button" mat-stroked-button matTooltip="Add Blog poster/image" (click)="posterRef.click()">Choose Poster</button>
+      <input
+        #posterRef
+        (change)="onImagePicked($event)"
+        type="file"
+        accept="image/*">
+      <div class="image-preview">
+        <img *ngIf="this.imagePreview" [src]="this.imagePreview">
+      </div>
+    </div>
+    <mat-form-field>
+      <mat-label>Add Blog's URL</mat-label>
+      <input type="url" matInput formControlName="blogURL">
+    </mat-form-field>
+    <div>
+      <mat-label class="mat-h4">Add short points about the blog. One line on each input</mat-label>
+      <div class="blog-points" formArrayName="blogPoints">
+        <div *ngFor="let control of getBlogPointsControls(); let i = index;">
+          <mat-form-field>
+            <mat-label>{{ 'Point ' + (i + 1) }}</mat-label>
+            <input type="text" matInput  [formControlName]="i">
+            <mat-error *ngIf="getBlogPointsControls()[i].invalid">One line can have a maximum of 100 characters</mat-error>
+          </mat-form-field>
+          <button type="button" *ngIf="i !== 0" class="btn-cancel" (click)="onBlogPointCancel(i)">&times;</button>
+        </div>
+      </div>
+      <button type="button" mat-flat-button color="primary" (click)="onAddMorePoints()">Add more points</button>
+    </div>
+    <mat-form-field class="social-media-select">
+      <mat-label>Social Media Links(if any)</mat-label>
+      <mat-select (selectionChange)="onSocialMediaSelectChange($event)">
+        <mat-option *ngFor="let option of socialMediaOptions" [value]="option.code">{{ option.platformName | titlecase }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div formGroupName="socialMedia">
+      <div class="social-media-url-list" *ngFor="let option of selectedSocialMediaOptions; let i = index;">
+        <mat-form-field>
+          <mat-label>{{ option.platformName | titlecase }}</mat-label>
+          <input matInput type="url" [formControlName]="option.code">
+        </mat-form-field>
+        <button type="button" class="btn-cancel" (click)="onSocialMediaCancel(option.code)">&times;</button>
+      </div>
+    </div>
+    <div class="my-3">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+      <button mat-flat-button color="warn" type="button" [routerLink]="['/', 'home']">Cancel</button>
+    </div>
+  </form>
+</mat-card>

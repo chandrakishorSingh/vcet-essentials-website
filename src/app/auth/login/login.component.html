@@ -1,0 +1,24 @@
+<mat-card>
+  <form>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input #email matInput required type="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input #password matInput required type="password">
+    </mat-form-field>
+    <button
+      [disabled]="!email.checkValidity() || !password.checkValidity()"
+      mat-raised-button
+      color="accent"
+      (click)="onLogin(email.value, password.value)"
+      type="button">Login</button>
+      <!--  test button  -->
+<!--    <button-->
+<!--      mat-raised-button-->
+<!--      color="accent"-->
+<!--      (click)="onLogin(email.value, password.value)"-->
+<!--      type="button">Login</button>-->
+  </form>
+</mat-card>

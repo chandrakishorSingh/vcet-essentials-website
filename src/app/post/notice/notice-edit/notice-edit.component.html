@@ -1,0 +1,40 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Notice Title</mat-label>
+      <input matInput type="text" formControlName="title">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose start date</mat-label>
+      <input
+        formControlName="startDate"
+        matInput
+        [matDatepicker]="startDate"
+        matTooltip="Date from which Notice is effective">
+      <mat-datepicker-toggle matPrefix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose end date</mat-label>
+      <input
+        formControlName="endDate"
+        matInput
+        [matDatepicker]="endDate"
+        matTooltip="Date from which Notice is becomes ineffective">
+      <mat-datepicker-toggle matPrefix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+    <div class="notice-pdf">
+      <button type="button" mat-stroked-button (click)="pdfRef.click()">{{ form.get('pdf').value ? this.pdfFileName: 'Choose PDF' }}</button>
+      <input
+        (change)="onPdfPicked($event)"
+        #pdfRef
+        type="file"
+        accept="application/pdf">
+    </div>
+    <div class="mat-action-list">
+      <button class="mx-3" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+      <button class="mx-3" mat-raised-button color="warn" type="button" [routerLink]="['/', 'home']">Cancel</button>
+    </div>
+  </form>
+</mat-card>
