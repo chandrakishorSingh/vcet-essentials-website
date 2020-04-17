@@ -22,6 +22,7 @@ export class DatabaseService {
   constructor(private ngFirestore: AngularFirestore,
               private authService: AuthService) {
     this.registerObservables();
+    this.resetDataOnLogout();
   }
 
   registerObservables() {
@@ -31,17 +32,26 @@ export class DatabaseService {
 
     this.eventsObservable.subscribe((data) => {
       this.events = this.sortEvents(data);
-      console.log(this.events);
+      // console.log(this.events);
     });
 
     this.noticesObservable.subscribe((data) => {
       this.notices = this.sortNotices(data);
-      console.log('notices', this.notices);
+      // console.log('notices', this.notices);
     });
 
     this.blogsObservable.subscribe((data) => {
       this.blogs = this.sortBlogs(data);
-      console.log('blogs', this.blogs);
+      // console.log('blogs', this.blogs);
+    });
+  }
+
+  resetDataOnLogout() {
+    this.authService.isAuthObservable.subscribe(() => {
+      this.notices = [];
+      this.events = [];
+      this.blogs = [];
+      this.registerObservables();
     });
   }
 

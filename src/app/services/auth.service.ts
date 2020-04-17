@@ -23,7 +23,7 @@ export class AuthService {
     this.org = await this.getOrgFromWeb();
     this.isAuthenticated = true;
     this.isAuthObservable.next(this.isAuthenticated);
-    console.log(this.org);
+    // console.log(this.org);
   }
 
   async logout() {

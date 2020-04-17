@@ -13,7 +13,7 @@ import {AuthModule} from './auth/auth.module';
 import {PostModule} from './post/post.module';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../environments/environment';
+import {environment} from '../environments/environment.prod';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 

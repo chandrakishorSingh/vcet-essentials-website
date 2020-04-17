@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   async onLogout() {
     // show the spinner and go to auth page after logout
-    const dialogRef = this.matDialog.open(ModalComponent);
+    const dialogRef = this.matDialog.open(ModalComponent, { disableClose: true });
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['/', 'auth']);
     });
