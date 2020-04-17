@@ -55,12 +55,12 @@ export class NoticeEditComponent implements OnInit {
     }
 
     // show spinner while submitting the notice
-    const spinnerRef = this.matDialog.open(ModalComponent);
+    const spinnerRef = this.matDialog.open(ModalComponent, { disableClose: true });
 
     try {
       // create notice obj
       const org = this.authService.getOrg();
-      const notice = new NoticeModel(title, startDate.toISOString(), endDate.toISOString(), org, null, null);
+      const notice = new NoticeModel(title, startDate.toISOString(), endDate.toISOString(), new Date().toISOString(), org, null, null);
 
       // store notice obj and get it's ref
       const basePath = `posts/${this.authService.getUID()}/notices`;

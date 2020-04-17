@@ -19,8 +19,13 @@
       <mat-label>Add Blog's URL</mat-label>
       <input type="url" matInput formControlName="blogURL">
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Blog Description</mat-label>
+      <textarea #descriptionRef rows="3" type="text" matInput formControlName="description"></textarea>
+      <mat-error *ngIf="descriptionRef.value.length > 100">Maximum 180 characters are allowed</mat-error>
+    </mat-form-field>
     <div>
-      <mat-label class="mat-h4">Add short points about the blog. One line on each input</mat-label>
+      <mat-label class="mat-h4">What readers will get to know after reading this blog ? Add short points about the blog. One line on each input</mat-label>
       <div class="blog-points" formArrayName="blogPoints">
         <div *ngFor="let control of getBlogPointsControls(); let i = index;">
           <mat-form-field>

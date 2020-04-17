@@ -20,6 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { GenericModalComponent } from './generic-modal/generic-modal.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,8 @@ import { GenericModalComponent } from './generic-modal/generic-modal.component';
     MatTooltipModule,
     MatSelectModule,
     MatIconModule,
-    MatTreeModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   exports: [
     MatToolbarModule,
@@ -62,8 +63,8 @@ import { GenericModalComponent } from './generic-modal/generic-modal.component';
     MatTooltipModule,
     MatSelectModule,
     MatIconModule,
-    MatTreeModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ]
 })
 export class AngularMaterialModule {}

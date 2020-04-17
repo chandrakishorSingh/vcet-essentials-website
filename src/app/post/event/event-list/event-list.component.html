@@ -1,1 +1,50 @@
-<p>event-list works!</p>
+<div class="post-button">
+  <button mat-raised-button color="accent" [routerLink]="['/', 'home', 'new', 'event']">Create Event</button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel class="event" *ngFor="let event of events">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ event.title }}</mat-panel-title>
+      <mat-panel-description>{{ event.createdAt | date }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ event.title }}</mat-card-title>
+      </mat-card-header>
+      <div class="event-poster">
+        <img [src]="event.posterURL" [alt]="event.title">
+      </div>
+      <mat-card-content>
+        <p>{{ event.description }}</p>
+        <div class="dates">
+          <p>Start Date: {{ event.startDate | date }}</p>
+          <p>End Date: {{ event.endDate | date }}</p>
+        </div>
+        <div class="times">
+          <p>Event starts at: {{ event.startTime }}</p>
+          <p>Event ends at: {{ event.endTime }}</p>
+        </div>
+        <div class="venue">
+          <p>Venue: {{ event.venue }}</p>
+        </div>
+        <div class="social-media" *ngIf="event.socialMedia.length > 0">
+          <p>Social Media</p>
+          <a
+            target="_blank"
+            [href]="socialMedia.url"
+            *ngFor="let socialMedia of event.socialMedia"
+            mat-stroked-button>{{ getSocialMedia(socialMedia.platform).platformName | titlecase }}</a>
+        </div>
+        <a mat-stroked-button target="_blank" [href]="event.pdfURL" *ngIf="event.pdfURL">View PDF</a>
+      </mat-card-content>
+    </mat-card>
+    <mat-action-row>
+      <button mat-flat-button color="warn" (click)="onEventDelete(event)">Delete</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<div *ngIf="events.length === 0">
+  <p class="mat-display-3">No Events Found !</p>
+</div>
+

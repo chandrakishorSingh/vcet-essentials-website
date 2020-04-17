@@ -117,7 +117,7 @@ export class EventEditComponent implements OnInit {
       null);
 
     // start the spinner while data is uploaded
-    const spinnerRef = this.matDialog.open(ModalComponent);
+    const spinnerRef = this.matDialog.open(ModalComponent, { disableClose: true });
 
     try {
       // store the event obj in db and get it's ref

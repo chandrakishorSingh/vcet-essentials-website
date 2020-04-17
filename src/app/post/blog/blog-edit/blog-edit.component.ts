@@ -51,6 +51,7 @@ export class BlogEditComponent implements OnInit {
       title: new FormControl(null, Validators.required),
       blogPoster: new FormControl(null, Validators.required),
       blogURL: new FormControl(null, Validators.required),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(180)]),
       blogPoints: new FormArray([new FormControl(null, [Validators.required, Validators.maxLength(100)])]),
       socialMedia: new FormGroup({})
     });
@@ -99,6 +100,7 @@ export class BlogEditComponent implements OnInit {
     const title: string = this.form.value.title;
     const blogURL: string = this.form.value.blogURL;
     const blogPoints: string[] = this.form.value.blogPoints;
+    const description: string = this.form.value.description;
     const socialMedia = [];
     for (const key in this.form.value.socialMedia) {
       socialMedia.push({ platform: key, url: this.form.value.socialMedia[key] });
@@ -108,6 +110,7 @@ export class BlogEditComponent implements OnInit {
       title,
       blogURL,
       null,
+      description,
       blogPoints,
       org,
       new Date().toISOString(),
@@ -115,7 +118,7 @@ export class BlogEditComponent implements OnInit {
       socialMedia);
 
     // show spinner while data is been stored in db
-    const spinnerRef = this.matDialog.open(ModalComponent);
+    const spinnerRef = this.matDialog.open(ModalComponent, { disableClose: true });
     const basePath = `posts/${this.authService.getUID()}/blogs`;
     try {
       // store the blog obj in db and get it's ref

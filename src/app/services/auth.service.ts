@@ -33,6 +33,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.isAuthObservable.next(this.isAuthenticated);
     this.uid = null;
+    this.org = null;
   }
 
   getIsAuthenticated(): boolean {

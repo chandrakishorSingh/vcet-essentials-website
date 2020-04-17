@@ -5,6 +5,7 @@ export class BlogModel {
   constructor(public title: string,
               public blogURL: string,
               public posterURL: string,
+              public description: string,
               public featurePoints: string[],
               public org: OrgModel,
               public createdAt: string,

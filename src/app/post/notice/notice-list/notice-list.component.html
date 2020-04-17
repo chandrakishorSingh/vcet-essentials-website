@@ -1,1 +1,30 @@
-<p>notice-list works!</p>
+<div class="post-button">
+  <button mat-raised-button color="accent" [routerLink]="['/', 'home', 'new', 'notice']">Create Notice</button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel class="event" *ngFor="let notice of notices">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ notice.title }}</mat-panel-title>
+      <mat-panel-description>{{ notice.createdAt | date }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ notice.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="dates">
+          <p>Start Date: {{ notice.startDate | date }}</p>
+          <p>End Date: {{ notice.endDate | date }}</p>
+        </div>
+        <a mat-stroked-button target="_blank" [href]="notice.pdfURL">View PDF</a>
+      </mat-card-content>
+    </mat-card>
+    <mat-action-row>
+      <button mat-flat-button color="warn" (click)="onNoticeDelete(notice)">Delete</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<div *ngIf="notices.length === 0">
+  <p class="mat-display-3">No Notices Found !</p>
+</div>

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   async onLogin(email: string, password: string) {
     // show the spinner while server is authenticating then go to home page after successful login
-    this.dialogRef = this.matDialog.open(ModalComponent);
+    this.dialogRef = this.matDialog.open(ModalComponent, { disableClose: true });
     this.dialogRef.afterClosed().subscribe(() => {
       if (this.isLoggedIn) {
         this.router.navigate(['/', 'home']);

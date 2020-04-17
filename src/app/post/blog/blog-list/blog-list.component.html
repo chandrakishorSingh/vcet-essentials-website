@@ -1,1 +1,37 @@
-<p>blog-list works!</p>
+<div class="post-button">
+  <button mat-raised-button color="accent" [routerLink]="['/', 'home', 'new', 'blog']">Create Blog</button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel class="blog" *ngFor="let blog of blogs">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ blog.title }}</mat-panel-title>
+      <mat-panel-description>{{ blog.createdAt | date }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ blog.title }}</mat-card-title>
+      </mat-card-header>
+      <div>
+        <img [src]="blog.posterURL" [alt]="blog.title">
+      </div>
+      <mat-card-content>
+        <p>{{ blog.description }}</p>
+        <div class="social-media" *ngIf="blog.socialMedia.length > 0">
+          <p>Social Media</p>
+          <a
+            target="_blank"
+            [href]="socialMedia.url"
+            *ngFor="let socialMedia of blog.socialMedia"
+            mat-stroked-button>{{ getSocialMedia(socialMedia.platform).platformName | titlecase }}</a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-action-row>
+      <button mat-flat-button color="warn" (click)="onBlogDelete(blog)">Delete</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<div *ngIf="blogs.length === 0">
+  <p class="mat-display-3">No Blogs Found !</p>
+</div>
